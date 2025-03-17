@@ -7,7 +7,7 @@ function Movie({ data }) {
   return (
     <div>
       <img
-        className="aspect-video brightness-50"
+        className="aspect-video w-full brightness-50"
         src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
         alt=""
       />

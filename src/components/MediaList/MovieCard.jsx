@@ -1,6 +1,6 @@
 import CircularProgressBar from "./CircularProgressBar";
 
-function MovieCard({ media }) {
+function MovieCard({ media, mediaType }) {
   const {
     backdrop_path,
     title,
@@ -8,11 +8,10 @@ function MovieCard({ media }) {
     release_date,
     first_air_date,
     vote_average,
-    media_type,
   } = media;
   return (
     <div className="relative rounded-lg border border-slate-800">
-      {media_type === "tv" && (
+      {mediaType === "tv" && (
         <p className="absolute top-1 right-1 rounded bg-black p-1 text-sm font-bold text-white shadow-md">
           TV Show
         </p>
