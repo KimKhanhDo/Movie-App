@@ -19,6 +19,7 @@ function FeatureMovies() {
       const popularMovies = data.results.slice(0, 4);
       setActiveMovieId(popularMovies[0].id);
       setMovies(popularMovies);
+      console.log(popularMovies);
     });
   }, []);
 

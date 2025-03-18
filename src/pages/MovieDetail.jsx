@@ -1,71 +1,42 @@
-import { faPlay } from "@fortawesome/free-solid-svg-icons/faPlay";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CircularProgressBar from "../components/CircularProgressBar";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Loading from "../components/Loading";
+import Banner from "../components/MediaDetail/Banner";
 
 function MovieDetail() {
+  const [movieInfo, setMovieInfo] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const { id } = useParams();
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(
+      `https://api.themoviedb.org/3/movie/${id}?append_to_response=release_dates,credits`,
+      {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3OTY0NTUyODc1ZTExOTM0ZjllM2I2Nzg4YzNkZGRjNSIsIm5iZiI6MTc0MjA4NzY0OC4zMTgsInN1YiI6IjY3ZDYyNWUwMTkxODY4YzU0ZmYxNzM3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VjqH79JJ_bvTcLGIUR1aRQhOkoIJqBc7_d49qctYNbY",
+        },
+      },
+    )
+      .then(async (res) => {
+        const data = await res.json();
+        setMovieInfo(data);
+        console.log({ data });
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setIsLoading(false));
+  }, [id]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
-    <div className="relative overflow-hidden text-white">
-      <img
-        className="absolute inset-0 brightness-[.2]"
-        src="https://www.sciencefriday.com/wp-content/uploads/2024/06/inside-out-2-promo.jpeg"
-        alt=""
-      />
-      <div className="relative mx-auto flex max-w-screen-xl gap-6 p-6 py-10 lg:gap-8">
-        <div className="flex-1">
-          <img
-            src="https://m.media-amazon.com/images/M/MV5BYWY3MDE2Y2UtOTE3Zi00MGUzLTg2MTItZjE1ZWVkMGVlODRmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
-            alt=""
-          />
-          {/* Content */}
-        </div>
-        <div className="flex-[2] text-[1.2vw]">
-          <p className="mb-2 text-[2vw] font-bold">Test</p>
-          {/* Info */}
-          <div className="flex items-center gap-4">
-            <span className="border border-gray-400 p-1 text-gray-400">G</span>
-            <p>2021-12-11</p>
-            <p>Fantasy, Adventure</p>
-          </div>
-
-          {/* Rating */}
-          <div className="mt-4 flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <CircularProgressBar percent={100} size={3.5} strokeWidth={0.3} />
-              Rating
-            </div>
-            <button>
-              <FontAwesomeIcon className="mr-1" icon={faPlay} />
-              Trailer
-            </button>
-          </div>
-
-          {/* Overview */}
-          <div className="mt-4">
-            <p className="mb-2 text-[1.3vw] font-bold">Overview</p>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum
-              unde dicta assumenda obcaecati quasi! Deserunt porro
-              exercitationem omnis eligendi quaerat quae consequuntur cupiditate
-              voluptatem provident! Distinctio optio repellendus quos nihil.
-              Deleniti consectetur unde impedit voluptatibus ducimus dolor non
-              aperiam quod magni accusamus rerum corporis similique, vel vero?
-              Fugiat, labore adipisci.
-            </p>
-          </div>
-
-          {/* DirectBy */}
-          <div className="mt-4 grid grid-cols-2 gap-2">
-            <div>
-              <p className="font-bold">Director</p>
-              <p>Jenni</p>
-            </div>
-            <div>
-              <p className="font-bold">Writer</p>
-              <p>Jenni</p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div>
+      <Banner mediaInfo={movieInfo} />
     </div>
   );
 }

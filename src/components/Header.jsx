@@ -1,11 +1,15 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
     <header className="flex h-14 items-center justify-between bg-slate-950 px-8 text-white lg:h-20">
       <div className="flex items-center gap-4 lg:gap-6">
-        <img className="w-16 sm:w-28" src="./netflix.png" alt="netflix" />
+        <Link to="/">
+          <img className="w-16 sm:w-28" src="/netflix.png" alt="netflix" />
+        </Link>
+
         <a className="lg:text-xl" href="#">
           Movies
         </a>
