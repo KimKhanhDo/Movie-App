@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import MovieCard from "./MovieCard";
+import MovieCard from "@components/MovieCard";
 
 function MediaList({ title, tabs }) {
   const [mediaList, setMediaList] = useState([]);

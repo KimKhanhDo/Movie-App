@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import CircularProgressBar from "../CircularProgressBar";
+import CircularProgressBar from "./CircularProgressBar";
 
 function MovieCard({ media, mediaType }) {
   const {
@@ -12,8 +12,8 @@ function MovieCard({ media, mediaType }) {
     vote_average,
   } = media;
   return (
-    <Link to={`/movie/${id}`}>
-      <div className="relative rounded-lg border border-slate-800">
+    <Link to={`/movie/${id}`} className="rounded-lg border border-slate-800">
+      <div className="relative">
         {mediaType === "tv" && (
           <p className="absolute top-1 right-1 rounded bg-black p-1 text-sm font-bold text-white shadow-md">
             TV Show
