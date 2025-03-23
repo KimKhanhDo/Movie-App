@@ -1,6 +1,11 @@
+import Loading from "@components/Loading";
 import MovieCard from "@components/MovieCard";
 
-function RelatedMediaList({ mediaList = [] }) {
+function RelatedMediaList({ mediaList = [], isLoading }) {
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className="mt-6">
       <p className="mb-4 text-[1.4vw] font-bold">More like this</p>
