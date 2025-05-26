@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import CircularProgressBar from "./CircularProgressBar";
 import ImageComponent from "./ImageComponent";
 
-function MovieCard({ media, mediaType }) {
+function MovieCard({ media }) {
   const {
     id,
     backdrop_path,
@@ -11,12 +11,16 @@ function MovieCard({ media, mediaType }) {
     release_date,
     first_air_date,
     vote_average,
+    media_type,
   } = media;
 
   return (
-    <Link to={`/movie/${id}`} className="rounded-lg border border-slate-800">
+    <Link
+      to={media_type === "tv" ? `/tv/${id}` : `/movie/${id}`}
+      className="rounded-lg border border-slate-800"
+    >
       <div className="relative">
-        {mediaType === "tv" && (
+        {media_type === "tv" && (
           <p className="absolute top-1 right-1 rounded bg-black p-1 text-sm font-bold text-white shadow-md">
             TV Show
           </p>

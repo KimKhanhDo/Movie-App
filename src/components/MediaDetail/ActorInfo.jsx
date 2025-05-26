@@ -1,7 +1,7 @@
 import ImageComponent from "@components/ImageComponent";
 
 function ActorInfo({ actor }) {
-  const { id, profile_path, name, character } = actor;
+  const { profile_path, name, character, episodeCount } = actor;
 
   return (
     <div className="rounded-lg border border-slate-300 bg-black shadow-sm">
@@ -20,7 +20,13 @@ function ActorInfo({ actor }) {
       <div className="p-3">
         <p className="font-bold">{name}</p>
         <p>{character}</p>
-        {/* <p>18 eps</p> */}
+        {episodeCount && (
+          <p>
+            {episodeCount > 1
+              ? `${episodeCount} Episodes`
+              : `${episodeCount} Episode`}
+          </p>
+        )}
       </div>
     </div>
   );
