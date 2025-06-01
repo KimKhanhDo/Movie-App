@@ -1,16 +1,19 @@
 import ImageComponent from "@components/ImageComponent";
+import { Link } from "react-router-dom";
 
 function ActorInfo({ actor }) {
-  const { profile_path, name, character, episodeCount } = actor;
+  const { id, profile_path, name, character, episodeCount } = actor;
 
   return (
-    <div className="rounded-lg border border-slate-300 bg-black shadow-sm">
+    <Link
+      to={`/people/${id}`}
+      className="rounded-lg border border-slate-300 bg-black shadow-sm"
+    >
       <ImageComponent
         className="rounded-lg"
         src={
-          profile_path
-            ? `https://media.themoviedb.org/t/p/w276_and_h350_bestv2${profile_path}`
-            : "/ActorNoImage.svg"
+          profile_path &&
+          `https://media.themoviedb.org/t/p/w276_and_h350_bestv2${profile_path}`
         }
         alt={name}
         width={276}
@@ -28,7 +31,7 @@ function ActorInfo({ actor }) {
           </p>
         )}
       </div>
-    </div>
+    </Link>
   );
 }
 export default ActorInfo;

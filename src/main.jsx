@@ -1,12 +1,14 @@
-import { StrictMode } from "react";
+import { lazy, StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
-import HomePage from "@pages/HomePage.jsx";
-import MovieDetail from "@pages/MovieDetail.jsx";
 import RootLayout from "@pages/RootLayout.jsx";
-import TVShowDetail from "@pages/TVShowDetail";
 import ModalProvider from "@context/ModalProvider";
+
+const MovieDetail = lazy(() => import("@pages/MovieDetail"));
+const TVShowDetail = lazy(() => import("@pages/TVShowDetail"));
+const HomePage = lazy(() => import("@pages/HomePage"));
+const PeoplePage = lazy(() => import("@pages/PeoplePage"));
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,22 @@ const router = createBrowserRouter([
       {
         path: "/tv/:id",
         element: <TVShowDetail />,
+      },
+      {
+        path: "/people/:id",
+        element: <PeoplePage />,
+        loader: async ({ params }) => {
+          const res = await fetch(
+            `https://api.themoviedb.org/3/person/${params.id}?append_to_response=combined_credits`,
+            {
+              headers: {
+                accept: "application/json",
+                Authorization: ` Bearer ${import.meta.env.VITE_API_TOKEN}`,
+              },
+            },
+          );
+          return res;
+        },
       },
     ],
   },

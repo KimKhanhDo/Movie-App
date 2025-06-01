@@ -5,7 +5,7 @@ import ImageComponent from "./ImageComponent";
 function MovieCard({ media }) {
   const {
     id,
-    backdrop_path,
+    poster_path,
     title,
     name,
     release_date,
@@ -28,7 +28,7 @@ function MovieCard({ media }) {
 
         <ImageComponent
           className={"w-full rounded-lg"}
-          src={`https://image.tmdb.org/t/p/w500${backdrop_path}`}
+          src={poster_path && `https://image.tmdb.org/t/p/w500${poster_path}`}
           alt={title}
           width={210}
           height={300}

@@ -30,13 +30,22 @@ function MediaList({ title, tabs }) {
       </div>
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6 lg:gap-6">
-        {mediaList.map((media) => (
+        {/* {mediaList.map((media) => (
           <MovieCard
             key={media.id}
             media={media}
             mediaType={media.media_type || activeTabId}
           />
-        ))}
+        ))} */}
+
+        {mediaList.map((media) => {
+          const enforcedMedia = {
+            ...media,
+            media_type: media.media_type || activeTabId, // fallback for missing media_type
+          };
+
+          return <MovieCard key={media.id} media={enforcedMedia} />;
+        })}
       </div>
     </div>
   );
